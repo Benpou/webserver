@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Benpou/webserver/issues"
   },
-  "homepage": "https://github.com/Benpou/webserver#readme"
+  "homepage": "https://github.com/Benpou/webserver#readme",
+  "dependencies": {
+    "express": "^4.16.1"
+  }
 }
