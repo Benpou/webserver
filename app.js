@@ -1,15 +1,58 @@
-const http = require('http');
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
 
-const hostname = '127.0.0.1';
-const port = '3000';
+const app = express();
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-type', 'text/plain');
-    res.end('Hello world\n');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(path.join(__dirname, 'public')));
 
-    });
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-})
+app.get('/users', (req, res) => {
+    let users = [
+        {
+            first_name: 'John',
+            last_name: 'Doe',
+            age: '12',
+            gender: 'male'
+        },
+        {
+            first_name: 'kim',
+            last_name: 'lkkk',
+            age: '42',
+            gender: 'female'
+        },
+        {
+            first_name: 'khosro',
+            last_name: 'moe',
+            age: '98',
+            gender: 'male'
+        }
+
+    ];
+
+    res.json(users);
+});
+
+app.get('/download', (req, res) => {
+    res.download(path.join(__dirname, '/downloads/pdf-sample.pdf'));
+});
+
+app.get('/about', (req, res) => {
+    res.redirect('/about.html');
+});
+
+app.post('/subscribe', (req, res) => {
+    let name = req.body.name;
+    let email = req.body.email;
+
+    console.log(name + ' this is email : ' + email);
+
+});
+
+
+app.listen(3000, () => {
+    console.log('welcome to app');
+
+});
